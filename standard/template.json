@@ -1,0 +1,37 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "type": "String"
+        },
+        "location": {
+            "type": "String"
+        },
+        "skuName": {
+            "allowedValues": [
+                "Free_DS2",
+                "Basic_DS2"
+            ],
+            "type": "String"
+        },
+        "capacity": {
+            "type": "Int"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.SignalRService/SignalR",
+            "sku": {
+                "name": "[parameters('skuName')]",
+                "capacity": "[parameters('capacity')]"
+            },
+            "name": "[parameters('name')]",
+            "apiVersion": "2018-03-01-preview",
+            "location": "[parameters('location')]",
+            "properties": {
+                "domainLabel": "[parameters('name')]"
+            }
+        }
+    ]
+}
